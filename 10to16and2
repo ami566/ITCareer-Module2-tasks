@@ -1,0 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _10to16and2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = int.Parse(Console.ReadLine());
+            string to16 = Convert.ToString(a, 16);
+            string i16 = to16.ToUpper();
+            Console.WriteLine(i16);
+            string to2 = Convert.ToString(a, 2);
+            Console.WriteLine(to2);
+        }
+    }
+}
