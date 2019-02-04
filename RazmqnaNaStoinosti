@@ -1,0 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _razmqnanastoinosti
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = int.Parse(Console.ReadLine());
+            int b = int.Parse(Console.ReadLine());
+            int c = a;
+            a = b;
+            b = c;
+            Console.WriteLine("Before: \n a = {0} \n b = {1} \n After:\n a = {1} \n b = {0}", b,a);
+        }
+    }
+}
