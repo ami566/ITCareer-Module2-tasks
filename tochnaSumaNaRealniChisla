@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace tochnaSuma
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            decimal s = 0.00m;
+            for (int i = 1; i<=n;i++)
+            { 
+            decimal a = decimal.Parse(Console.ReadLine());
+                s = s + a;
+            }
+            Console.WriteLine(s);
+        }
+    }
+}
