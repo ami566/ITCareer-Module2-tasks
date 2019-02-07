@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MostMeetedNumber
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] arr = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+
+            int[] fr = new int[arr.Length];
+            int j = 0;
+          
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[j] == arr[i])
+                {
+                    fr[j]++;
+                }
+                else
+                {
+                    j++;
+                    fr[j]++;
+                }
+            }
+
+        }
+    }
+}
