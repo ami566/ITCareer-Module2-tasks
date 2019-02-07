@@ -13,21 +13,20 @@ namespace MostMeetedNumber
             int[] arr = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
 
             int[] fr = new int[arr.Length];
-            int j = 0;
+            int br = 1;
+            int maxBr = 0;
+            int maxFr = 0;
+            int pan = arr[0];
           
             for (int i = 0; i < arr.Length; i++)
             {
-                if (arr[j] == arr[i])
-                {
-                    fr[j]++;
-                }
-                else
-                {
-                    j++;
-                    fr[j]++;
-                }
+                if (pan == arr[i]) br++;
+                else pan = arr[1];
+                
             }
+            if (maxBr < br) maxBr = br; maxFr = pan;
 
+            Console.WriteLine(String.Join(" ", arr));
         }
     }
 }
