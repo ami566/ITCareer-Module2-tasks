@@ -1,0 +1,36 @@
+using System;
+using System.Linq;
+					
+public class Program
+{
+	public static void Main()
+	{
+		int[] arr = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+		int currSeen = arr[0];
+		int mostFrSeen = currSeen;
+		
+		int currSeenCount = 1;
+		int mostFrSeenCount = currSeenCount;
+
+		for (int i=1; i < arr.Length; i++)
+		{
+			if (arr[i] == currSeen) 
+			{
+				currSeenCount++;
+			}
+			else 
+			{
+				if (currSeenCount > mostFrSeenCount)
+				{
+					mostFrSeenCount = currSeenCount;
+					mostFrSeen = currSeen;
+				}	
+				currSeen = arr[i];
+				currSeenCount = 1;			
+			}
+		};
+		
+		Console.WriteLine("The number {0} is seen {1} times.", mostFrSeen, mostFrSeenCount);
+		
+	}
+}
