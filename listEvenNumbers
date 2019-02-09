@@ -14,11 +14,14 @@ namespace ConsoleApp1
              Console.ReadLine().Split(' ')
                .Select(int.Parse).ToList();
 
-              for (int index = 0; index < nums.Count; index++)
-              {
-                if (nums[index] % 2 == 0)
-                    Console.WriteLine(nums[index]);
-              }
+            foreach (var item in nums)
+            {
+                if (item % 2 == 0)
+                {
+                    Console.WriteLine(item);
+                }
+
+            }
 
 
 
