@@ -10,11 +10,22 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            List<string> lists =
-             Console.ReadLine().Split('|').ToList();
-            lists.Reverse();
-            Console.WriteLine(string.Join(" ",lists));
+            List<string> lists = Console.ReadLine().Split('|').ToList();
+
+            List<int> result = new List<int>(); //създаваме празен списък за резултата
+                                                //обождаме списъка от числовите списъци отзад напред:
+            for (int index = lists.Count - 1; index >= 0; index--)
+            {
+                List<string> nums = lists[index].Split(' ').ToList();
+                //отделяме списъка използвайки интервалите
+                for (int index2 = 0; index2 < nums.Count; index2++)
+                    if (nums[index2] != "") result.Add(int.Parse(nums[index2]));
+                //ако на nums[index2] има низ, който не е празен – обръщаме го в цяло число и го добавяме към result
+
+            }
+
+            Console.WriteLine(String.Join(" ", result));
         }
     }
-    
+
 }
