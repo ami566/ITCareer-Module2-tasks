@@ -1,0 +1,23 @@
+using System;
+
+namespace Palindrom
+{
+    class Program
+    {
+        static bool IsPalindrom(string exp)
+        {
+            char[] expSymbs = exp.ToCharArray();
+            //expSymbs.Reverse();
+            for (int i = 0; i < exp.Length/2; i++)
+            {
+                if (expSymbs[i] != expSymbs[expSymbs.Length - 1 - i]) return false;
+            }       
+            return true;
+        }
+        static void Main(string[] args)
+        {
+            string expression = Console.ReadLine();
+            Console.WriteLine(IsPalindrom(expression));
+        }
+    }
+}
