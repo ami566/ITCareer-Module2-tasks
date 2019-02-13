@@ -34,10 +34,9 @@ namespace ConsoleApp4am
         }
         static void Main(string[] args)
         {
-            string expression1 = Console.ReadLine();
-            string expression2 = Console.ReadLine();
-
-            Console.WriteLine(Exp(expression1,expression2));
+            string[] exp = Console.ReadLine().Split(' ').ToArray();
+           
+            Console.WriteLine(Exp(exp[0],exp[1]));
         }
     }
 }
