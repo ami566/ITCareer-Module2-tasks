@@ -1,0 +1,35 @@
+using System;
+using System.Collections.Generic;
+
+namespace Palindrom
+{
+    class Program
+    {
+        static bool IsPalindrom(List<char> exp)
+        {
+           bool result = true;
+            for (int i = 0; i < exp.Count / 2; i++)
+            {
+                if (exp[i] != exp[exp.Count - i - 1]) {result = false; }
+                else { result = true; }
+            }
+            return true;
+        }
+        static void Main(string[] args)
+        {
+            string expression = Console.ReadLine();
+            char[] t = expression.ToCharArray();
+            List <char> resultArr = new List<char>();
+            int j = 0;
+            for (int i = 0; i < expression.Length; i++)
+            {
+                if (expression[i]!= ' ')
+                {
+                    resultArr[j++] = expression[i];
+                }
+
+            } 
+            Console.WriteLine(IsPalindrom(resultArr));
+        }
+    }
+}
