@@ -1,0 +1,84 @@
+using System;
+
+namespace ConsoleApp6
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string strA = Console.ReadLine();
+            string strB = Console.ReadLine();
+            bool ch = true;
+            if (strA.Length == strB.Length)   // ако низовете са с равни дължини
+            {
+
+                int i = 1;
+                while (ch && (i < strA.Length))    // ако до i-та позиция низовете с заменяеми
+                {
+
+
+                    int posA = strA.Substring(0, i).IndexOf(strA[i]); // търсим позицията на символа напред в подниза strA
+                    if (posA >= 0)
+                    {                     // ако се съдържа напред
+                        if (strB[i] != strB[posA]) // проверяваме съответсвието дали е еднозначно, т.е да е същото
+                        {
+                            ch = false; // ако имаме различни съответствия
+                            break;
+                        }
+
+                    }
+                    else  // ако не се съдържа напред
+                    {
+                        int posB = strB.Substring(0, i).IndexOf(strB[i]); // търсим позицията на символа напред в подниза strB
+                        if (posB >= 0) // ако се намери,
+                        {
+                            if (strB[i] != strB[posB]) // и не съответства 
+                            {
+                                ch = false;
+                                break;
+                            }
+                        }
+                    }
+                    i++; // разглеждаме следващата позиция със следващите поднизове от strA и strB
+                }
+            }
+            else // низовете са с различни дължини
+            if (ch)
+            {
+                string tail = "";
+                if (strA.Length < strB.Length)  // ако str1е по-късия низ
+                {
+                    tail = strB.Substring(strA.Length, strB.Length - strA.Length); // образуваме опашката от двата
+                                                                                   // от края на str1 до края на str2      
+                    foreach (var item in tail)
+                    {
+
+                        int posB = strB.Substring(0, strA.Length).IndexOf(item);//проверяваме дали символите са познати
+                        if (posB < 0)
+                        {
+                            ch = false;
+                            break;
+                        }
+                    }
+                }
+                else  // ако str2 е по-късия низ
+                {
+                    tail = strA.Substring(strB.Length, strA.Length - strB.Length);//  образуваме опашката от двата
+                                                                                  // от края на str2 до края на str1  
+                    foreach (var item in tail)
+                    {
+                        int posA = strA.Substring(0, strB.Length).IndexOf(item);//проверяваме дали символите са познати
+                        if (posA < 0)
+                        {
+                            ch = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (ch)
+                Console.WriteLine("The strings are changeable");
+            else Console.WriteLine("The strings are not changeable");
+        }
+    }
+}
