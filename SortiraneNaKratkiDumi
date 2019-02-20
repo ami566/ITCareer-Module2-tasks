@@ -1,0 +1,31 @@
+using System;
+using System.Linq;
+
+namespace SortiraneNaKratkiDumi
+{
+    class Program
+    {
+
+        static string Rev(string x)
+        {
+            char[] symbs = new char[x.Length];
+            for (int i = 0; i < x.Length; i++)
+            {
+                symbs[i] = symbs[x.Length - 1 - i];
+            }
+            string str = new String(symbs);
+            return str ;
+        }
+
+        static void Main(string[] args)
+        {
+            char[] separators = new char[]
+           {'.',',',':',';','(',')','[',']','\\','\"','\'','/','!','?',' '};
+            string sentence = Console.ReadLine().ToLower();
+            string[] words = sentence.Split(separators);
+            var result = words.Select(x=>Rev(x)) ;
+            Console.WriteLine(string.Join(", ", result));
+
+        }
+    }
+}
