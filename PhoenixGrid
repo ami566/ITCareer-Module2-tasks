@@ -11,13 +11,17 @@ namespace PhoenixGrid
             while (true)
             {
                 string[] line = Console.ReadLine().Split('.').ToArray();
+                
+                bool isPalindrom = true;
                 if (line[0] == "ReadMe")
                 {
                     Console.WriteLine(string.Join("\n", pals));
                     break;
                 }
-                bool isPalindrom = true;
-
+                if (line.Contains("_") || line.Contains(" "))
+                {
+                    isPalindrom = false;
+                }
                 for (int j = 0; j < line.Length; j++)
                 {
 
@@ -41,6 +45,7 @@ namespace PhoenixGrid
                             }
                         }
                     }
+                    
                 if (isPalindrom)
                 {
                     pals.Add("YES");
@@ -48,6 +53,7 @@ namespace PhoenixGrid
                 else { pals.Add("NO"); }
                 
                 }
+              
             }
             Console.WriteLine(pals); 
         }
