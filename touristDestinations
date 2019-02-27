@@ -1,0 +1,69 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Tourist_Destinations
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] command = { };
+            Dictionary<string, List<string>>
+                destinations = new Dictionary<string, List<string>>();
+            do
+            {
+                command = Console.ReadLine().Split(' ').ToArray();
+                string action = command[0];
+
+                switch (command[0])
+                {
+                    case "Add": //AddDestination(command[1], command[2]);
+                        if (destinations.ContainsKey(command[1]))
+                        {
+                            destinations[command[1]].Add(command[2]);
+                        }
+                        else
+                        {
+                            List<string> tempList = new List<string>();
+
+                            tempList.Add(command[2]);
+
+                            destinations.Add(command[1], tempList);
+                        }
+                        break;
+
+                    case "Remove":
+                        bool notAvailable = true;
+                        foreach (var item in destinations.Keys)
+                        {
+
+                            if (destinations[item].Contains(command[1]))
+                            {
+                                destinations[item].Remove(command[1]);
+                                notAvailable = false;
+                                break;
+                            }
+
+                        }
+                        if (notAvailable)
+                        {
+                            Console.WriteLine($"City {command[1]} not found");
+                        }
+                        break;
+
+                    case "End":
+                        break;
+                }
+            } while (command[0] != "End");
+
+
+
+            foreach (var item in destinations.OrderByDescending(x => x.Value.Count).
+                ThenBy(x => x.Key))
+            {
+                Console.WriteLine($"{item.Key} has {item.Value.Count} cities and they are: => { string.Join(" ", item.Value)}");
+            }
+        }
+    }
+}
