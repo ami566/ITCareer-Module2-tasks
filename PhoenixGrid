@@ -1,61 +1,75 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-namespace PhoenixGrid
+using System.Linq;
+
+namespace Phoenix_Grid
 {
     class Program
     {
         static void Main(string[] args)
         {
-            List<string> pals = new List<string>();
+            
+            List < string > pals= new List<string>();
             while (true)
             {
-                string[] line = Console.ReadLine().Split('.').ToArray();
-                
-                bool isPalindrom = true;
-                if (line[0] == "ReadMe")
+                bool palindrome = true;
+                string lineString = Console.ReadLine();
+                string[] line=lineString.Split('.').ToArray();
+                if (lineString=="ReadMe")
                 {
-                    Console.WriteLine(string.Join("\n", pals));
                     break;
                 }
-                if (line.Contains("_") || line.Contains(" "))
+
+                if (lineString.Contains("_") || lineString.Contains(" "))
                 {
-                    isPalindrom = false;
+                    palindrome = false;
+                    pals.Add("NO");
+                    continue;    // Интересно!!! continue прекъсва изпълнението
+                                 // на текущата итерация, но не излиза от цилъл, както е при break
                 }
+
                 for (int j = 0; j < line.Length; j++)
                 {
-
                     char[] symbsLeft = line[j].ToCharArray();
+
                     char[] symbsRight = line[line.Length - 1 - j].ToCharArray();
+
                     for (int i = 0; i < symbsLeft.Length; i++)
                     {
-                        if (symbsLeft[i] == symbsRight[symbsRight.Length - 1 - i])
+                        if (symbsLeft[i] != symbsRight[symbsRight.Length - 1 - i])
                         {
-                            isPalindrom = false; break;
+                            palindrome = false;
+                            break;
                         }
                     }
+
                     if (line.Length % 2 == 1)
                     {
                         char[] middle = line[line.Length / 2].ToCharArray();
                         for (int i = 0; i < middle.Length / 2; i++)
                         {
-                            if (middle[i] == middle[middle.Length - 1 - i])
+                            if (middle[i] != middle[middle.Length - 1 - i])
                             {
-                                isPalindrom = false; break;
+                                palindrome = false;
+                               
+                                break;
                             }
                         }
+
                     }
-                    
-                if (isPalindrom)
+                }
+
+                if (palindrome)
                 {
-                    pals.Add("YES");
+                    pals.Add("YES"); 
                 }
-                else { pals.Add("NO"); }
-                
-                }
-              
+                else
+                {
+                    pals.Add("NO");    
+                } 
+   
             }
-            Console.WriteLine(pals); 
+            Console.WriteLine(String.Join("\n", pals));
         }
     }
 }
