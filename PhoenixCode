@@ -1,38 +1,75 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace PhoenixCode
+namespace CODE_Phoenix
 {
     class Program
     {
         static void Main(string[] args)
         {
-            
-            Dictionary<string, List<string>> myDict = new Dictionary<string,List<string>>();
+
+            Dictionary<string, List<string>> beshir = new Dictionary<string, List<string>>();
+
+
             while (true)
             {
                 string input = Console.ReadLine();
+
                 if (input != "Blaze it!")
                 {
                     int pos = input.IndexOf(" -> ");
                     string key = input.Substring(0, pos);
-                    string value = input.Substring(pos+4, input.Length-pos-4);
-                    if (myDict.ContainsKey(key))
+                    string value = input.Substring(pos + 4, input.Length - (pos + 4));
+
+                    if (beshir.ContainsKey(key))
                     {
-                        myDict[key].Add(value);
+                        beshir[key].Add(value);
                     }
+
                     else
                     {
                         List<string> tempList = new List<string>();
+
                         tempList.Add(value);
-                        myDict.Add(key, tempList);
+
+                        beshir.Add(key, tempList);
                     }
-                    
+
                 }
                 else
-                {break; }
+                {
+
+                    break;
+                }
             }
-            // pechat
+
+            foreach (var itemF in beshir)
+            {                                       // x->z, t
+                                                    // y->t,s
+                string searchedKeyInValueList = itemF.Key;
+                foreach (var itemS in beshir)
+                {
+                    if (itemF.Key != itemS.Key)
+                    {
+                        if (itemS.Value.Contains(searchedKeyInValueList))
+                        {
+                            string keyOfFoundValue = itemS.Key;
+                            itemS.Value.Remove(searchedKeyInValueList);
+                            itemF.Value.Remove(keyOfFoundValue);
+                        }
+                    }
+                }
+            }
+
+            foreach (var item in beshir
+                .OrderByDescending(x => x.Value.Count).
+                ThenBy(x => x.Key))
+            {
+                Console.WriteLine($"{item.Key} -> {item.Value.Count}  { string.Join(" ", item.Value)}"); // ???? не знам дали така се отпечатва
+            }
+
+
         }
     }
 }
