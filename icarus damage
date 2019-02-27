@@ -1,0 +1,65 @@
+using System;
+using System.Linq;
+
+namespace Icarus_Damage
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] planes = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+
+            int position = int.Parse(Console.ReadLine());
+            int force = 1; // силата е 1, за да се натрупва за всички случаи
+            while (true)
+            {
+                string[] command = Console.ReadLine().Split(' ').ToArray();
+                if (command[0] == "Supernova")
+                {
+                    break;
+                }
+                string dir = command[0];
+                int steps = int.Parse(command[1]);
+
+                if (dir == "left")
+                {
+                    for (int step = 1; step <= steps; step++)
+                    {
+                        position--;
+                        if (position >= 0)
+                        {
+                            planes[position] -= force;
+                        }
+                        else
+                        {
+                            step--;  // на тази стъпка не се променя нищо, следователно трябва 
+                            position += planes.Length + 1;   // върнем стъпката
+                            force++;
+                        }
+                    }
+                }
+                else
+                if (dir == "right")
+                {
+                    for (int step = 1; step <= steps; step++)
+                    {
+                        position++;
+                        if (position < planes.Length)
+
+                        {
+                            planes[position] -= force;
+                        }
+                        else
+                        {
+                            step--;  // на тази стъпка не се променя нищо, следователно трябва 
+                            position -= planes.Length - 1;   // върнем стъпката
+                            force++;
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine(string.Join(" ", planes));
+        }
+    }
+}
