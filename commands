@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+namespace commands
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> sequation = Console.ReadLine().Split(' ').Select(int.Parse).ToList();
+
+            while (true)
+            {
+                string input = Console.ReadLine();
+                if (input == "print")
+                {
+                    break;
+                }
+
+                List<string> command = input.Split(' ').ToList();
+
+                switch (command[0])
+                {
+                    case "push":
+                        sequation.Add(int.Parse(command[1]));
+                        break;
+                    case "pop":
+                        Console.WriteLine(sequation[sequation.Count - 1]);
+                        sequation.Remove(sequation[sequation.Count - 1]);
+                        break;
+                    case "shift":
+                        int last = sequation[sequation.Count - 1];
+                        int first = sequation[0];
+                        sequation.Remove(sequation[sequation.Count - 1]);
+                        sequation.Add(first);
+                        sequation.Remove(sequation[0]);
+                        sequation.Insert(0, last);
+                        break;
+                    case "addMany":
+                        int pos = int.Parse(command[1]);
+                        List<int> toAdd = command.Skip(2).Take(command.Count - 2).Select(int.Parse).ToList();
+
+                        if ((pos < 0) || (pos > sequation.Count))
+                        {
+                            Console.WriteLine("invalid position");
+                        }
+                        else
+                        {
+                            for (int i = 0; i < toAdd.Count; i++)
+                            {
+                                sequation.Insert(pos + i, toAdd[i]);
+                            }
+                        }
+                        break;
+                    case "remove":
+                        sequation.RemoveAt(int.Parse(command[1]));
+                        break;
+                    default: break;
+                }
+            }
+            sequation.Reverse();
+            Console.WriteLine(string.Join(", ", sequation));
+
+        }
+    }
+}
