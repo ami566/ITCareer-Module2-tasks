@@ -1,0 +1,46 @@
+using System;
+using System.Linq;
+using System.Text;
+
+namespace Strings
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+
+            string pattern = Console.ReadLine();
+
+
+            while (pattern.Length > 0)
+            {
+                int pos = input.LastIndexOf(pattern);
+
+                if (pos >= 0)
+                {
+                    input = input.Remove(pos, pattern.Length);
+                }
+                else
+                {
+                    break;
+                }
+
+                pattern = pattern.
+                            Remove(pattern.Length / 2, 1);
+                /*    char[] symbsPattern = pattern.ToCharArray();
+
+                    for (int i = 0; i < symbsPattern.Length/2; i++)
+                    {
+                        char buffer = symbsPattern[i];
+                        symbsPattern[i] = symbsPattern[symbsPattern.Length - 1 - i];
+                        symbsPattern[symbsPattern.Length - 1 - i] = buffer;
+                    }
+                    pattern = new string(symbsPattern);
+                  */
+                pattern = new string(pattern.ToCharArray().Reverse().ToArray());
+            }
+            Console.WriteLine(input);
+        }
+    }
+}
