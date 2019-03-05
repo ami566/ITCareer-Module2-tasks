@@ -1,0 +1,131 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace StudentClasses
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<string, List<string>> classes = new Dictionary<string, List<string>>();
+            while (true)
+            {
+                List<string> command = Console.ReadLine().Split(' ').ToList();
+                string action = command[0];
+                if (action != "End")
+                {
+                    switch (action)
+                    {
+                        case "Add":
+                            Add(classes, command);
+                            break;
+                        case "Transfer":
+                            Transfer(classes, command);
+                            break;
+                        case "Merge":
+
+                            Merge(classes, command);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            FilterEmpty(classes);
+
+            Print(classes);
+        }
+
+        private static void FilterEmpty(Dictionary<string, List<string>> classes)
+        {
+            string[] keys = classes.Keys.ToArray();
+
+            foreach (string key in keys)
+            {
+
+                if (classes[key].Count == 0)
+                {
+                    classes.Remove(key);
+                }
+            }
+        }
+
+        private static void Merge(Dictionary<string, List<string>> classes, List<string> command)
+        {
+            string sourceClass = command[1];
+            string destinationClass = command[2];
+
+            string[] students = classes[sourceClass].ToArray();
+
+            foreach (string student in students)
+            {
+                classes[destinationClass].Add(student);
+                classes[sourceClass].Remove(student);
+            }
+
+
+        }
+
+        private static void Transfer(Dictionary<string, List<string>> classes, List<string> command)
+        {
+            string student = command[1];
+            string sourceClass = command[3];
+            string destinationClass = command[5];
+
+            if (classes.ContainsKey(destinationClass))// ако има пар приемник
+            {
+                classes[destinationClass].Add(student);
+            }
+            else
+            {
+                List<string> tempList = new List<string>();
+                tempList.Add(student);
+                classes.Add(destinationClass, tempList);
+                // classes[destinationClass] = tempList; //може и така
+            }
+            classes[sourceClass].Remove(student);
+
+
+        }
+
+        private static void Add(Dictionary<string, List<string>> classes, List<string> command)
+        {
+            string key = command[2];
+            string value = command[1];
+            if (classes.ContainsKey(key))
+            {
+                classes[key].Add(value);
+            }
+            else
+            {
+                List<string> tempList = new List<string>();
+                tempList.Add(value);
+                classes.Add(key, tempList);
+            }
+        }
+
+        private static void Print(Dictionary<string, List<string>> classes)
+        {
+            foreach (
+                            var item in classes.
+                            OrderByDescending(x => x.Value.Count).
+                            ThenBy(x => x.Key)
+                     )
+            {
+                Console.WriteLine($"Class name - {item.Key}");
+                foreach (var it in item.Value)
+                {
+                    Console.WriteLine($"###{it}");
+                }
+
+            }
+        }
+    }
+}
