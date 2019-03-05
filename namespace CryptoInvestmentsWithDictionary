@@ -1,0 +1,65 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CryptoInvestments2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            const decimal commissionPercent = 0.073456764216789345M;
+            Dictionary<string, decimal> prices = new Dictionary<string, decimal>();
+
+            prices["Bitcoin"] = decimal.Parse(Console.ReadLine());
+            prices["Ethereum"] = decimal.Parse(Console.ReadLine());
+            prices["Litecoin"] = decimal.Parse(Console.ReadLine());
+
+            int transactions = int.Parse(Console.ReadLine());
+
+            Dictionary<string, decimal> dictionary = new Dictionary<string, decimal>();
+            
+            decimal[] commissions = new decimal[transactions];
+
+            for (int i = 0; i < transactions; i++)
+            {
+                decimal qty = decimal.Parse(Console.ReadLine());
+                string currency = Console.ReadLine();
+                string operation = Console.ReadLine();
+
+                if (operation == "Buy")
+                {
+                    if (!dictionary.ContainsKey(currency))
+                    {
+                        dictionary[currency] = qty;
+                    }
+                    else
+                    {
+                        dictionary[currency] += qty;
+                    }
+                }
+                else if (operation == "Sell")
+                {
+                    if (!dictionary.ContainsKey(currency))
+                    {
+                        dictionary[currency] = -qty;
+                    }
+                    else
+                    {
+                        dictionary[currency] -= qty;
+                    }
+                }
+
+                commissions[i] += qty*prices[currency]*commissionPercent;
+            }
+
+            decimal wallet = 0;
+
+            foreach (var key in dictionary.Keys)
+            {
+                wallet += dictionary[key] * prices[key];
+            }
+            Console.WriteLine($"{wallet - commissions.Sum():f16}");
+        }        
+    }
+}
