@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace izpit2
+namespace raindrops
 {
     class Program
     {
@@ -15,16 +15,17 @@ namespace izpit2
             {
                 string[] input = Console.ReadLine().Split(' ').ToArray();
                 siteNames[i] = input[0];
-                int siteVisits = int.Parse(input[1]);
+                long siteVisits = long.Parse(input[1]);
                 decimal siteCommercialPricePerVisit = decimal.Parse(input[2]);
                 decimal siteLoss = siteVisits * siteCommercialPricePerVisit;
                 totalMoneyLoss += siteLoss;
             }
             double securityToken = Math.Pow(securityKey, N);
+
             Console.WriteLine(string.Join("\n", siteNames));
             Console.WriteLine($"Total Loss: {totalMoneyLoss:F20}");
             Console.WriteLine($"Security Token: {securityToken}");
         }
-        
+
     }
 }
