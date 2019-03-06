@@ -1,0 +1,41 @@
+using System;
+using System.Linq;
+
+namespace rainer
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+            int pos = input[input.Length - 1];
+            int[] field = new int[input.Length - 1];
+            int[] game = new int[field.Length];
+            for (int i = 0; i < input.Length-1; i++)
+            {
+                field[i] = input[i];
+                game[i] = input[i];
+            }
+            int steps = 0;
+            while (true)
+            {
+                
+                for (int i = 0; i < field.Length; i++)
+                {
+                    game[i] -= 1;
+                    if ((game[i] == 0) && (i!=pos) )
+                    {
+                        if (game[pos] != 0) { game[i] = field[i]; }
+                    }
+                }
+                  if (game[pos] == 0) { break; } steps += 1;
+                pos = int.Parse(Console.ReadLine());
+               
+            }
+            Console.WriteLine(String.Join(" ",game));
+            Console.WriteLine(steps);
+            
+            
+        }
+    }
+}
