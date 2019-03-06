@@ -1,0 +1,29 @@
+using System;
+using System.Linq;
+
+namespace raindrops
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int N = int.Parse(Console.ReadLine());
+            double density = double.Parse(Console.ReadLine());
+            double coefficients = 0;
+            
+            for (int i = 0; i < N; i++)
+            {
+                string[] input = Console.ReadLine().Split(' ').ToArray();
+                double raindropsCount = double.Parse(input[0]);
+                double squareMeters = double.Parse(input[1]);
+                double c = raindropsCount/squareMeters;
+                coefficients += c;
+            }
+            double result =coefficients/density;
+            if (density!=0)
+            { Console.WriteLine($"{result:F3}"); }
+            else Console.WriteLine(coefficients);
+        }
+
+    }
+}
