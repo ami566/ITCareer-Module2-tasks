@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace raincast
+{
+    class Program
+    {
+        static bool IsAlphaNum(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return false;
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (!(char.IsLetter(str[i])) && (!(char.IsNumber(str[i]))))
+                    return false;
+            }
+
+            return true;
+        } 
+        static void Main(string[] args)
+        {
+            List<string> type = new List<string>();
+            List<List<string>> forecast = new List<List<string>>();
+            List<string> source = new List<string>();
+            // string[] ban = new string[] {"!", ".", ",", "?"};
+            while (true)
+            {
+                string text = Console.ReadLine();
+                if (text == "Davai Emo") break;
+
+                List<string> str = text.Split(' ').ToList();
+                switch (str[0]) 
+                {
+                    case "Type:":
+                        if (str[1] == "Normal" || str[1] == "Danger" || str[1] == "Warning")
+                        { type.Add(str[1]); } break;
+                    case "Source:":
+                        if (IsAlphaNum(str[1]))
+                        { source.Add(str[1]); }
+                        break;
+                    case "Forecast:":
+                        str.Remove(str[0]);
+                        List<string> n = str;
+                        //if ((!str.Contains(".")) && (!str.Contains(",")) && (!str.Contains("!")) && (!str.Contains("?")))
+                        { forecast.Add(str); }
+                        break;
+                }
+
+                for (int i = 0; i < forecast.Count; i++)
+                {
+                    //Console.WriteLine($": ({type[i]}) {forecast[i]} ~ {source[i]}");
+                }
+            }
+
+            Console.WriteLine(String.Join(" ", source));
+            Console.WriteLine(String.Join(" ", type));
+            Console.WriteLine(String.Join(" ", forecast));
+        }
+    }
+}
+
+// проблем при добавянето на forecast в списък и после в големия списък, най-вероятно
+// ще стане проблем и при отпечатването на втория пример
