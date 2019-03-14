@@ -1,67 +1,68 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace raincast
+namespace anonymousVox
 {
     class Program
     {
-        static bool IsAlphaNum(string str)
-        {
-            if (string.IsNullOrEmpty(str))
-                return false;
-
-            for (int i = 0; i < str.Length; i++)
-            {
-                if (!(char.IsLetter(str[i])) && (!(char.IsNumber(str[i]))))
-                    return false;
-            }
-
-            return true;
-        } 
+        
         static void Main(string[] args)
         {
-            List<string> type = new List<string>();
-            List<List<string>> forecast = new List<List<string>>();
-            List<string> source = new List<string>();
-            // string[] ban = new string[] {"!", ".", ",", "?"};
+            string waitedKind = "Type";
+            List<string> answer = new List<string>();
             while (true)
             {
-                string text = Console.ReadLine();
-                if (text == "Davai Emo") break;
-
-                List<string> str = text.Split(' ').ToList();
-                switch (str[0]) 
+                string input = Console.ReadLine();
+                if (input == "Davai Emo")
                 {
-                    case "Type:":
-                        if (str[1] == "Normal" || str[1] == "Danger" || str[1] == "Warning")
-                        { type.Add(str[1]); } break;
-                    case "Source:":
-                        if (IsAlphaNum(str[1]))
-                        { source.Add(str[1]); }
-                        break;
-                    case "Forecast:":
-                        str.Remove(str[0]);
-                        List<string> n = str;
-                        //if ((!str.Contains(".")) && (!str.Contains(",")) && (!str.Contains("!")) && (!str.Contains("?")))
-                        { forecast.Add(str); }
-                        break;
+                    break;
                 }
+                string[] inputLine = input.Split(':').ToArray();
+                string kind = inputLine[0];
 
-                for (int i = 0; i < forecast.Count; i++)
+                switch (kind)
                 {
-                    //Console.WriteLine($": ({type[i]}) {forecast[i]} ~ {source[i]}");
+                    case "Type":
+                        if (waitedKind=="Type")
+                        {
+                            inputLine[1]=inputLine[1].TrimStart();
+                            if (inputLine[1] == "Normal" || inputLine[1] == "Warning" || inputLine[1] == "Danger")
+                            {
+                               answer.Add(inputLine[1]);
+                                waitedKind = "Source";
+                            }
+
+                        }
+                        break;
+                    case "Source":
+                        if (waitedKind == "Source")
+                        {
+                          answer.Add(inputLine[1]);
+                            waitedKind = "Forecast";
+                        }
+                        break;
+                    case "Forecast":
+                        if (waitedKind =="Forecast")
+                        {
+                            if (!(inputLine[1].Contains('!'))&& !(inputLine[1].Contains('.'))
+                                && !(inputLine[1].Contains(','))&& !(inputLine[1].Contains('?')))
+                            {
+                                answer.Add(inputLine[1]);
+                                waitedKind = "Type";
+                            }
+                        }
+                        break;
+
+                    default: break;
                 }
+                
             }
-
-            Console.WriteLine(String.Join(" ", source));
-            Console.WriteLine(String.Join(" ", type));
-            Console.WriteLine(String.Join(" ", forecast));
+            for (int i = 0; i < answer.Count; i+=3)
+            {
+               Console.WriteLine($"({answer[i]}){answer[i+2]} ~{answer[i+1]}");
+            }
+            
         }
     }
 }
-
-// проблем при добавянето на forecast в списък и после в големия списък, най-вероятно
-// ще стане проблем и при отпечатването на втория пример
