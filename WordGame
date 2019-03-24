@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+namespace WordGame
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<string, int> words = new Dictionary<string, int>();
+            
+            while (true)
+            {
+                string word = Console.ReadLine();
+                var wordSum = 0;
+                char f = word[0];
+                char l = word[word.Length - 1];
+                if (word == "END OF GAME")
+                {
+                    break;
+                }
+                else
+                {
+                    
+                    foreach (char c in word)
+                    {
+                        wordSum = wordSum + (int)c;
+                    }
+                    if ((int)f < 97)
+                    { wordSum += 15; }
+                    if (l == 't')
+                    {
+                        wordSum += 20;
+                    }
+                    if (word.Length>=10)
+                    {
+                        wordSum += 30;
+                    }
+                }
+                words.Add(word, wordSum);
+            }
+
+
+            var maxValue = words.Values.Max();
+            var keyOfMaxValue = words.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+            Console.WriteLine($"Winner is word: {keyOfMaxValue}");
+            Console.WriteLine($"Points: {maxValue}");
+        }
+    }
+}
