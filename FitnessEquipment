@@ -1,0 +1,46 @@
+using System;
+
+namespace task1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int uredi = int.Parse(Console.ReadLine());
+            var dumbbells = 579;
+            var treadmill = 5899;
+            var crossTrainer = 1699;
+            var bike = 1789;
+            var suma = 0.0;
+            for (int i = 0; i < uredi; i++)
+            {
+                string vid = Console.ReadLine();
+                if (vid == "treadmill")
+                {
+                   suma = suma+treadmill;
+                }
+                else
+                {
+                    if (vid == "cross trainer")
+                    {
+                        suma = suma+crossTrainer;
+                    }
+                    if (vid == "exercise bike")
+                    {
+                        suma = suma + bike;
+                    }
+                    else
+                    {
+                        if (vid == "dumbbells")
+                        {
+                            suma =suma+dumbbells;
+                        }
+
+                    }
+                }
+            }
+           
+            Console.WriteLine("{0:f2}",suma);
+        }
+    }
+}
