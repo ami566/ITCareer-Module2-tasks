@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace FootballSeason
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<string,int> players = new Dictionary<string, int>();
+            
+            while (true)
+            {
+                string text = Console.ReadLine();
+                if (text == "End of season")
+                {
+                    break;
+                }
+                string[] danni = text.Split(' ').ToArray();
+                string key = danni[0];
+                int value = int.Parse(danni[2]);
+                if (players.ContainsKey(key))
+                {
+                    players[key]+=value;
+                }
+                else
+                {
+                   
+                    players.Add(key,value);
+                }
+            }
+            foreach (var item in players.OrderBy(x=>x.Key))
+            {
+                Console.WriteLine($"{item.Key} -> {item.Value}");
+
+            }
+            
+        }
+    }
+}
