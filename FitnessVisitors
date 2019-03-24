@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace FitnessVisitors
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<string> names = Console.ReadLine().Trim().Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            while (true)
+            {
+                string command = Console.ReadLine();
+                if (command== "END")
+                {
+                    break;
+                }
+                else
+                { 
+                switch (command)
+                {
+                    case "Add visitor":
+                        names.Add(Console.ReadLine());
+                        break;
+                    case "Remove first visitor":
+                        names.RemoveAt(0);
+                        break;
+                    case "Remove visitor on position":
+                        names.RemoveAt(int.Parse(Console.ReadLine()));
+                        break;
+                    case "Remove last visitor":
+                            names.RemoveAt(names.Count-1);
+                            break;
+                    case "Add visitor on position":
+                            var name = Console.ReadLine();
+                            int pos = int.Parse(Console.ReadLine());
+                            names.Insert(pos,name);
+                            break;
+                }
+            }
+               
+        
+    }
+            Console.WriteLine(String.Join(", ",names));
+}
+}}
